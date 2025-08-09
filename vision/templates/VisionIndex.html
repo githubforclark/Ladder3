@@ -1,0 +1,258 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Ladder3 愿景</title>
+    <link rel="shortcut icon" href="https://ladder3.oss-cn-beijing.aliyuncs.com/lg.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/secondvisionindex.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <style>
+        /* html { font-size: calc(1em + 1vw); } */
+        #bg{
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-position: top;
+            background-attachment: fixed;
+        }
+        
+        @font-face {
+        font-family: "Italianno";
+        src: url("{% static 'fonts/Italianno-Regular-1.ttf' %}") format("woff2");
+        font-weight: normal;
+        font-style: normal;
+        font-display: block;
+        }
+        @font-face {
+        font-family: "Colonna";
+        src: url("{% static 'fonts/Colonna-MT-2.ttf' %}") format("woff2");
+        font-weight: normal;
+        font-style: normal;
+        font-display: block;
+        }
+        @font-face {
+        font-family: "PoiretOne";
+        src: url("{% static 'fonts/PoiretOne-Regular.ttf' %}") format("woff2");
+        font-weight: normal;
+        font-style: normal;
+        font-display: block;
+        }
+    </style>
+
+</head>
+{% load static %}
+<body id="bg" style="background-color: #FFFFFF;">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-xs-12">
+            <div class="phone_return_btn">
+                <a href="/index/"><div class="top_menu_logo">L3</div></a>
+                <hr class="top_hr">
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-xs-12">
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container-sm">
+                    <div class="col-lg-12 col-md-12 vison_jumbo_content">
+                        <h1 class="display-4 vison_jumbo_title">Visions</h1>
+                    </div>
+                </div>
+              </div>
+        </div>
+
+        <div class="col-lg-2 col-md-2 col-xs-2">
+            <section class="main_menu d-none d-sm-block">
+                <div class="items">
+                    <a href="/index/"><div class="menu_logo">L3</div></a>
+                    <button id="dropdown-btn" class="menu_icon"><i class="bi bi-filter-left"></i></button>
+                    <div class="menu_ele">
+                            <a href='/Blog/BlogIndex?page=1'><div class="drop">Blog</div></a>
+                            <a href='/Vision/VisionIndex/'><div class="drop">Vision</div></a>
+                            <a href='/BookStacks/Stacks/'><div class="drop">BookStacks</div></a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="col-lg-10 col-md-10 col-xs-4">
+            <div class="row">
+                <div class="col-lg-5 col-md-5">
+                    <div class="vision-left-content">
+                        <small>Road Map</small>
+                        <h4 class="vision-left-content-title">阶梯3的思考过程：</h4>
+                        <p class="vision-left-content-cont">计算机诞生的周期塑造了今天的数字世界，其中 AI 是一个经历长时间学术沉淀和来自大公司的研究成果，并慢慢开始为各行业提供效率，而这里仍然缺乏服务。目前已经有超过 10 个的开源大模型、超过 10 个机器学习开源框架、数千个提供给 AI 开发者的工具和数千亿资金，随处都蕴含着巨大的机会。</p>
+                        <p class="vision-left-content-cont">我正在构建基于不同领域的工具并尝试为现有 AI 的能力提供使用场景，具体的，它会是26个模型，包括事务模型、能力模型、组织模型等等，每个模型可以独立运行也可以作为组件连接，就像乐高积木一样，而全部模型组装的结果是一个可以自我运行的组织、一个符合人类目标并关注个人成长的机器，作为人类进步的阶梯。</p>
+                        <p class="vision-left-content-cont">这里会持续记录构建过程的思考和一些实验，也接受所有的批评指正，随着这些思考的“涌现”，会逐渐变成：</p>
+                        <p class="done_milestone">一个博客<i class="bi bi-check2-circle"></i></p>
+                        <p class="milestone">一个社区</p>
+                        <p class="milestone">多个模型</p>
+                        <p class="milestone">多个工具</p>
+                        <p class="milestone">一个组织</p>
+                        <p class="milestone">一个产品</p>
+                    </div>
+                    
+                </div>
+        
+                <div class="col-lg-7 col-md-7  col-xs-6">
+                    
+                    <div class="content_body">
+                        <p>Works:</p>
+                        {% for i in vsdata.object_list %}
+                        <div class="card vision-card">
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 d-none d-sm-block">
+                                    <p class="vision-num">{{ i.ID }}</p>
+                                </div>
+    
+                                <div class="col-lg-10 col-md-10">
+                                    <div class="card-body">
+                                        <h5 class="card-title vision-title"><a href="/Vision/VisionContent/{{ i.ID }}/">{{ i.vision_title|safe }}</a></h5>
+                                        <p class="card-text vision-dec">{{ i.vision_describe|safe }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-12 col-md-12 col-xs-12">
+            <nav aria-label="Page navigation example" class="paginator_st">
+                <ul class="pagination">
+                    {% if vsdata.has_previous %}
+                        <a href="/Vision/VisionIndex?page={{ vsdata.previous_page_number }}"><i class="bi bi-chevron-compact-left pageicon"></i></a>
+                    {% endif %}
+
+                    <p class="pagep">page {{ vsdata.number }} of {{ vsdata_len }}</p>
+
+                    {% if vsdata.has_next %}
+                        <a href="/Vision/VisionIndex?page={{ vsdata.next_page_number }}"><i class="bi bi-chevron-compact-right pageicon"></i></a>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+        <div class="col-lg-12 col-md-12">
+            <footer class="footer navbar-fixed-bottom">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-xs-2">
+                    </div>
+    
+                    <div class="col-lg-6 col-md-6 col-xs-2">
+                        <span><a href="https://beian.miit.gov.cn/" target="_blank" class="beian footer_cont">鄂ICP备2023012715号-1</a></span>
+                        <span> | </span>
+                        <span class="footer_cont pi_cont">Copyright@2023 Ladder3</span>
+                    </div>
+    
+                    <div class="col-lg-3 col-md-3 col-xs-2 footer">
+                        <span onclick="persnoal_info()" class="about footer_icon">关于</span>
+                        <span onclick="persnoal_info()"><i class="bi bi-github footer_icon"></i></span>
+                        <span onclick="persnoal_info()"><i class="bi bi-wechat footer_icon"></i></span>
+                        <span onclick="persnoal_info()"><i class="bi bi-twitter footer_icon"></i></span>
+                        <span onclick="persnoal_info()"><i class="bi bi-envelope footer_icon"></i></span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12">
+        <!--个人信息-->
+        <div class="modal fade" id="PersnoalInfo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="PersnoalInfoLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title pi_cont" id="PersnoalInfoLabel">个人信息</h4>
+                        <i class="bi bi-x-lg" onclick="hide_pimodal()"></i>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 about_cont">
+                                <p>创建ladder3的想法来源于一个梦，在梦中人类能够机会均等的通过一台’自由机器’实现自己的目标，这个梦境的灵感成为创作Ladder3的源泉，至此后就不断完备知识，建立思考体系。</p>
+                                <p><strong>关于内容：</strong></p>
+                                <p>Ladder3会作为一个综合平台，记录一些灵感和技术实现，其中</p>
+                                <p style="text-indent:20px"><strong>[Blog]</strong> 主要记录可行的技术实现与前沿解读，</p>
+                                <p style="text-indent:20px"><strong>[Vision]</strong> 记录构建过程中的灵感与验证，</p>
+                                <p style="text-indent:20px"><strong>[BookStacks]</strong> 记录思想来源，</p>
+                                <p>本站目前的定位是<strong>*个人非商用*</strong>，但仍希望您在转载时能注释作者与来源。</p>
+                                <p>欢迎来到Ladder3，让我们一起踏上这段旅程</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4">
+                                <div class="pi_cont">
+                                    作者：
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-md-8">
+                                <div class="pi_cont">
+                                    叶正大
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4">
+                                <div class="pi_cont">
+                                    <i class="bi bi-github">GitHub:</i>
+                                </div>
+                                <div class="pi_cont">
+                                    <i class="bi bi-wechat">微信名: </i>
+                                </div>
+                                <div class="pi_cont">
+                                    <i class="bi bi-envelope">Email地址: </i>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-md-8">
+                                <div class="pi_cont">
+                                    https://github.com/githubforclark
+                                </div>
+                                <div class="pi_cont">
+                                    yezhengda_wx
+                                </div>
+                                <div class="pi_cont">
+                                    postmaster@ladder3.cn
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+<script type="text/javascript">
+$(window).scroll(function() {
+  var scrollPos = $(window).scrollTop();
+  var jumbotronHeight = 800; // 巨幕的高度
+  var screenWidth = window.innerWidth; //屏幕宽度
+
+  if (scrollPos > jumbotronHeight &&screenWidth >576) {
+    $('.main_menu').addClass('fixed'); // 添加固定样式
+    $('.vision-left-content').addClass('fixed'); // 添加固定样式
+    
+    
+  } else {
+    $('.main_menu').removeClass('fixed'); // 移除固定样式
+    $('.vision-left-content').removeClass('fixed'); // 移除固定样式
+  }
+});
+function persnoal_info(){
+    $('#PersnoalInfo').modal('show')
+}
+function hide_pimodal(){
+    $('#PersnoalInfo').modal('hide')
+}
+</script>
+</html>

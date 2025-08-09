@@ -1,0 +1,243 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ladder3 书架</title>
+    <link rel="shortcut icon" href="https://ladder3.oss-cn-beijing.aliyuncs.com/lg.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/secondbookindex.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <style>
+        #bg{
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-position: top;
+            background-attachment: fixed;
+        }
+        @font-face {
+        font-family: "Colonna";
+        src: url("{% static 'fonts/Colonna-MT-2.ttf' %}") format("woff2");
+        font-weight: normal;
+        font-style: normal;
+        font-display: block;
+        }
+        @font-face {
+        font-family: "PoiretOne";
+        src: url("{% static 'fonts/PoiretOne-Regular.ttf' %}") format("woff2");
+        font-weight: normal;
+        font-style: normal;
+        font-display: block;
+        }
+    </style>
+
+</head>
+{% load static %}
+<!-- style="background-image: url('{% static 'img/SurfaceStudio16-9.png' %}')"; -->
+<body id="bg">
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-xs-12">
+            <div class="phone_return_btn">
+                <a href="/index/"><div class="menu_logo">L3</div></a>
+                <hr class="top_hr">
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12">
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <div class="col-lg-5 col-md-5">
+                        <h1 class="display-4 books_jumbo_title">BOOKS</h1>
+                        <p class="books_jumbo_cont">欢迎来到 BookStacks书架，这里为你精心挑选了一些引人入胜的书籍，我会针对每本书进行伴读，让你更快地理解其中的概念和思想。让我们一起阅读、启发.</p>
+                    </div>
+                    <div class="col-lg-7 col-md-7 books_jumbo_img";>
+                    </div>
+
+                </div>
+              </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12">
+            <!--个人信息-->
+            <div class="modal fade" id="PersnoalInfo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="PersnoalInfoLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title pi_cont" id="PersnoalInfoLabel">个人信息</h4>
+                            <i class="bi bi-x-lg" onclick="hide_pimodal()"></i>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 about_cont">
+                                    <p>创建ladder3的想法来源于一个梦，在梦中人类能够机会均等的通过一台’自由机器’实现自己的目标，这个梦境的灵感成为创作Ladder3的源泉，至此后就不断完备知识，建立思考体系。</p>
+                                    <p><strong>关于内容：</strong></p>
+                                    <p>Ladder3会作为一个综合平台，记录一些灵感和技术实现，其中</p>
+                                    <p style="text-indent:20px"><strong>[Blog]</strong> 主要记录可行的技术实现与前沿解读，</p>
+                                    <p style="text-indent:20px"><strong>[Vision]</strong> 记录构建过程中的灵感与验证，</p>
+                                    <p style="text-indent:20px"><strong>[BookStacks]</strong> 记录思想来源，</p>
+                                    <p>本站目前的定位是<strong>*个人非商用*</strong>，但仍希望您在转载时能注释作者与来源。</p>
+                                    <p>欢迎来到Ladder3，让我们一起踏上这段旅程</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4">
+                                    <div class="pi_cont">
+                                        作者：
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-8">
+                                    <div class="pi_cont">
+                                        叶正大
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4">
+                                    <div class="pi_cont">
+                                        <i class="bi bi-github">GitHub:</i>
+                                    </div>
+                                    <div class="pi_cont">
+                                        <i class="bi bi-wechat">微信名: </i>
+                                    </div>
+                                    <div class="pi_cont">
+                                        <i class="bi bi-envelope">Email地址: </i>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-8">
+                                    <div class="pi_cont">
+                                        https://github.com/githubforclark
+                                    </div>
+                                    <div class="pi_cont">
+                                        yezhengda_wx
+                                    </div>
+                                    <div class="pi_cont">
+                                        postmaster@ladder3.cn
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="col-lg-2 col-md-2">
+            <section class="main_menu d-none d-sm-block">
+                <div class="items">
+                    <a href="/index/"><div class="menu_logo">L3</div></a>
+                    <button id="dropdown-btn" class="menu_icon"><i class="bi bi-filter-left"></i></button>
+                    <div class="menu_ele">
+                        <a href='/Blog/BlogIndex?page=1'><div class="drop">Blog</div></a>
+                        <a href='/Vision/VisionIndex/'><div class="drop">Vision</div></a>
+                        <a href='/BookStacks/Stacks/'><div class="drop">BookStacks</div></a>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="col-lg-8 col-md-8">
+            <div class="content_body">
+                <P class="book_card_title">Book List:</P>
+                <div class="row">
+                    {% for i in bookdata.object_list %}
+                    <div class="col-lg-6 col-md-6 col-xs-12">
+                        <div class="card mb-3 book-card">
+                            <div class="row no-gutters">
+                              
+                              <div class="col-md-7 col-xs-7 card-body-f">
+                                <div class="card-body">
+                                    <h5 class="card-title"><a href="/BookStacks/Books/{{ i.ID }}/">{{ i.book_title|safe }}</a></h5>
+                                    <p class="card-text">{{ i.book_describe }}</p>
+                                </div>
+                              </div>
+                              <div class="col-md-3 col-xs-5 card-img-f">
+                                <a href="/BookStacks/Books/{{ i.ID }}/">
+                                    <img src='{{ i.book_imglink }}' class="book_card_img" alt="...">
+                                </a>
+                              </div>
+                              <div class="col-md-2">
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <nav aria-label="Page navigation example" class="paginator_st">
+                    <ul class="pagination">
+                        {% if bookdata.has_previous %}
+                            <a href="/BookStacks/Stacks?page={{ bookdata.previous_page_number }}"><i class="bi bi-chevron-compact-left pageicon"></i></a>
+                        {% endif %}
+
+                        <p class="pagep">page {{ bookdata.number }} of {{ bookdata_len }}</p>
+
+                        {% if bookdata.has_next %}
+                            <a href="/BookStacks/Stacks?page={{ bookdata.next_page_number }}"><i class="bi bi-chevron-compact-right pageicon"></i></a>
+                        {% endif %}
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2">
+
+        </div>
+        <div class="col-lg-12 col-md-12">
+            <footer class="footer navbar-fixed-bottom">
+                <hr class="footer_hr">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-xs-2">
+                        <div class="fonter_logo"><a href="/index/">Ladder 3</a></div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-xs-2">
+                        <span><img src="https://ladder3.oss-cn-beijing.aliyuncs.com/%E5%A4%87%E6%A1%88%E5%9B%BE%E6%A0%87.png" alt=""></span>
+                        <span><a href="https://beian.miit.gov.cn/" target="_blank" class="beian">鄂ICP备2023012715号-1</a></span>
+                        <span> | </span>
+                        <span class="beian">42020202000192号</span>
+                        <div class="footer_cont pi_cont">Copyright@2023 Ladder3</div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-xs-2 footer">
+                        <span onclick="persnoal_info()" class="about footer_icon">关于</span>
+                        <span onclick="persnoal_info()"><i class="bi bi-github footer_icon"></i></span>
+                        <span onclick="persnoal_info()"><i class="bi bi-wechat footer_icon"></i></span>
+                        <span onclick="persnoal_info()"><i class="bi bi-twitter footer_icon"></i></span>
+                        <span onclick="persnoal_info()"><i class="bi bi-envelope footer_icon"></i></span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+</body>
+<script type="text/javascript">
+$(window).scroll(function() {
+  var scrollPos = $(window).scrollTop();
+  var jumbotronHeight = 400; // 巨幕的高度
+  var screenWidth = window.innerWidth; //屏幕宽度
+
+  if (scrollPos > jumbotronHeight && screenWidth >576) {
+    $('.main_menu').addClass('fixed'); // 添加固定样式
+    
+  } else {
+    $('.main_menu').removeClass('fixed'); // 移除固定样式
+  }
+});
+function persnoal_info(){
+    $('#PersnoalInfo').modal('show')
+}
+function hide_pimodal(){
+    $('#PersnoalInfo').modal('hide')
+}
+</script>
+</html>

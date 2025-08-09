@@ -1,0 +1,490 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Ladder3 博客 | {{contdata.blogname}}</title>
+<link rel="shortcut icon" href="https://ladder3.oss-cn-beijing.aliyuncs.com/lg.png">
+<!-- 富文本 -->
+<link rel="stylesheet" href="{% static 'css/editor.css' %}">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/secondblog.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/secondblog.js' %}"></script>
+<!-- 高亮 -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+
+<!-- 富文本 -->
+<script src="{% static 'js/editor.js' %}"></script>
+
+<style>
+    #bg{
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-position: top;
+        background-attachment: fixed;
+    }
+    @font-face {
+    font-family: "Colonna";
+    src: url("{% static 'fonts/Colonna-MT-2.ttf' %}") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+    }
+    @font-face {
+    font-family: "SimpleScript";
+    src: url("{% static 'fonts/SimpleScript-3.ttf' %}") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+    }
+
+    </style>
+    
+
+</head>
+{% load static %}
+<!-- style="background-image: url('{% static 'img/SurfaceStudio16-9.png' %}')"; -->
+<body id="bg" data-spy="scroll" data-target="#myScrollspy">
+    
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <!--点击signup的按钮的模态-->
+            <div class="modal fade" id="SignupModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="SignupModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="SignupModalLabel">Sign up</h4>
+                            <i class="bi bi-x-lg" onclick="hide_signupmodal()"></i>
+                        </div>
+                        <div class="modal-body">
+                            <p class="signup_tag">邮箱地址信息不会显示在站点内或被用于其他用途</p>
+                            <div id="result_title" style="color: #36f336;"></div>
+                            <form>
+                            {% csrf_token %}
+                                <div class="form-group row">
+                                    <label for="inputName" class="col-sm-2 col-form-label">用户名</label>
+                                    <div class="col-sm-10">
+                                    <input type="email" class="form-control" id="inputName">
+                                    </div>
+                                </div>
+                                <div id="rg_name_title" style="color: #fc3122;"></div>
+                                <div class="form-group row">
+                                    <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                                    <div class="col-sm-10">
+                                      <input type="email" class="form-control" id="inputEmail">
+                                    </div>
+                                </div>
+                                <div id="rg_mail_title" style="color: #fc3122;"></div>
+                                <div class="form-group row">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">密码</label>
+                                    <div class="col-sm-10">
+                                      <input type="password" class="form-control" id="inputPassword">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputPassword_conf" class="col-sm-2 col-form-label" style="font-size: 13px;">确认密码</label>
+                                    <div class="col-sm-10">
+                                      <input type="password" class="form-control" id="inputPassword_conf">
+                                    </div>
+                                </div>
+                                <div id="pwd_conf_title" style="color: #fc3122;"></div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            
+                            <button type="button" class="btn btn-primary" onclick="signup()">注册</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--点击创建login的按钮的模态-->
+            <div class="modal fade" id="LoginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="LoginModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="LoginModalLabel">Login</h4>
+                            
+                            <i class="bi bi-x-lg" onclick="hide_loginmodal()"></i>
+                            
+                        </div>
+                        <div class="modal-body">
+                            <a href="#" onclick="change_signup()" style="text-align: right;">注册</a>
+                            <hr>
+                            <form>
+                            {% csrf_token %}
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-default">用户名/Email:</span>
+                                    </div>
+                                    <input id="username_login" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-default">密码：</span>
+                                    </div>
+                                    <input id="password_login" type="password" class="form-control" id="inputPassword">
+                                </div>
+                                <div id="login_info"></div>
+                            </form>
+                        </div>
+                        <a href="#" onclick="change_record()" style="text-align: right;margin-right: 10px;">找回密码</a>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" onclick="login()">登陆</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--找回密码-->
+            <div class="modal fade" id="RecordModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="RecordModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="RecordModalLabel">Record</h4>
+                            <i class="bi bi-x-lg" onclick="hide_recordmodal()"></i>
+                            
+                        </div>
+                        <div class="modal-body">
+                            <a href="#" onclick="return_login()" style="text-align: right;">返回</a>
+                            <hr>
+                            <form>
+                            {% csrf_token %}
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-default">邮箱地址：</span>
+                                    </div>
+                                    <input id="recordmailaddr" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                </div>
+                                <div id="mailaddr_status"></div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-default">验证码：</span>
+                                    </div>
+                                    <input id="recordcode" type="text" class="form-control">
+                                </div>
+                                <div id="send_status"></div>
+                                <a href="#" onclick="send_code()" style="text-align: right;">发送验证码</a>
+
+                                <hr>
+                                <p>设置新密码</p>
+                                <div class="form-group row">
+                                    <label for="ReinputPassword" class="col-sm-2 col-form-label">密码</label>
+                                    <div class="col-sm-10">
+                                    <input type="password" class="form-control" id="ReinputPassword">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="ReinputPassword_conf" class="col-sm-2 col-form-label" style="font-size: 13px;">确认密码</label>
+                                    <div class="col-sm-10">
+                                    <input type="password" class="form-control" id="ReinputPassword_conf">
+                                    </div>
+                                </div>
+                                <div id="pwd_conf_title" style="color: #fc3122;"></div>
+                            </form>
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" onclick="record_verify()">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--个人信息-->
+            <div class="modal fade" id="PersnoalInfo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="PersnoalInfoLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title pi_cont" id="PersnoalInfoLabel">个人信息</h4>
+                            <i class="bi bi-x-lg" onclick="hide_pimodal()"></i>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 about_cont">
+                                    <p>创建ladder3的想法来源于一个梦，在梦中人类能够机会均等的通过一台’自由机器’实现自己的目标，这个梦境的灵感成为创作Ladder3的源泉，至此后就不断完备知识，建立思考体系。</p>
+                                    <p><strong>关于内容：</strong></p>
+                                    <p>Ladder3会作为一个综合平台，记录一些灵感和技术实现，其中</p>
+                                    <p style="text-indent:20px"><strong>[Blog]</strong> 主要记录可行的技术实现与前沿解读，</p>
+                                    <p style="text-indent:20px"><strong>[Vision]</strong> 记录构建过程中的灵感与验证，</p>
+                                    <p style="text-indent:20px"><strong>[BookStacks]</strong> 记录思想来源，</p>
+                                    <p>本站目前的定位是<strong>*个人非商用*</strong>，但仍希望您在转载时能注释作者与来源。</p>
+                                    <p>欢迎来到Ladder3，让我们一起踏上这段旅程</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4">
+                                    <div class="pi_cont">
+                                        作者：
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-8">
+                                    <div class="pi_cont">
+                                        叶正大
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4">
+                                    <div class="pi_cont">
+                                        <i class="bi bi-github">GitHub:</i>
+                                    </div>
+                                    <div class="pi_cont">
+                                        <i class="bi bi-wechat">微信名: </i>
+                                    </div>
+                                    <div class="pi_cont">
+                                        <i class="bi bi-envelope">Email地址: </i>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-8">
+                                    <div class="pi_cont">
+                                        https://github.com/githubforclark
+                                    </div>
+                                    <div class="pi_cont">
+                                        yezhengda_wx
+                                    </div>
+                                    <div class="pi_cont">
+                                        postmaster@ladder3.cn
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-2 col-md-2">
+            <section class="main_menu d-none d-sm-block">
+                <div class="items">
+                    <a href="/index/"><div class="menu_logo">L3</div></a>
+                    <button id="dropdown-btn" class="menu_icon"><i class="bi bi-filter-left"></i></button>
+                    <div class="menu_ele">
+                        <a href='/Blog/BlogIndex?page=1'><div class="drop">Blog</div></a>
+                        <a href='/Vision/VisionIndex/'><div class="drop">Vision</div></a>
+                        <a href='/BookStacks/Stacks/'><div class="drop">BookStacks</div></a>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="col-lg-8 col-md-8">
+            <div class="blog_content_body">
+
+                <h1 class="blogname">{{contdata.blogname}}</h1>
+                <div class="blogid" id="blogid" hidden>{{contdata.blogid}}</div>
+                <div class="blogcontent" id="blogcontent">
+                    {{contdata.blogcontent|safe}}
+                    <hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr>
+                    <hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr>
+
+                </div>
+
+                <!-- 评论 -->
+                <!-- 锚 -->
+                <a href="#comm_top" id="comm_top"></a>
+                <!-- 富媒体 -->
+                {% if user.is_authenticated %}
+                    <div>
+                        <form>
+                        {% csrf_token %}
+                            <div class="form-group">
+                                <label for="body" style="font-family: KurewaGothicCjkTc;">
+                                    <strong>
+                                        评论：
+                                    </strong>
+                                </label>
+                                <div id="editor—wrapper">
+                                    <div id="toolbar-container"><!-- 工具栏 --></div>
+                                    <div id="editor-container"><!-- 编辑器 --></div>
+                                </div>
+                            </div>
+                            <button hidden type="button" class="btn btn-primary" onclick="logout()">登出</button>
+                            <button type="button" class="btn btn-dark" onclick="comment_submit()">发送</button>                    
+                        </form>
+                    </div>
+                    <br>
+                {% else %}
+                    <br>
+                    <h5 class="row justify-content-center">
+                        请<a style="color: rgb(56, 85, 250);" onclick="show_login_modal()">登录</a>后回复
+                        
+                    </h5>
+                    <br>
+                {% endif %}
+                
+                <h4 style="font-family: SimpleScript;font-weight:700">{{ contdata.com_len }} Comments</h4>
+                <div class="comlist" id="comlist">
+                    {% for comment in contdata.comdata %}
+                    <div id="com{{ comment.ID }}">
+                        <div hidden>{{ comment.ID }}</div>
+                        <hr style="background-image: linear-gradient(to right, #ffffff, #000000, #ffffff);">
+                        <p>
+                            <img src="https://ladder3.oss-cn-beijing.aliyuncs.com/%E5%A4%B4%E5%83%8F.png" alt="" style="border-radius:50%; height: 40px; width: 40px;">
+                            <strong style="color: black;font-size: 20px; text-decoration: underline; font-family:'Courier New', Courier, monospace;">
+                                {{ comment.UserName }}
+                            </strong>
+                        </p>
+                        <pre style="font-family: inherit; font-size: 15px; padding-left: 20px;">
+                            {{ comment.CommentBody|safe }}</pre>
+                        {% if user|striptags == comment.UserName|striptags %}
+                        <div style="text-align: right;">
+                            <div class="del_com" style="cursor:pointer;color: #206cfa;" onclick="del_com('{{ comment.ID }}')">删除</div>
+                        </div>
+                        {% endif %}
+                        <div style="color: rgb(95, 95, 95); text-align: right;">
+                            发布于：{{ comment.create_time|date:"Y-m-d H:i:s" }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2 col-md-2 d-none d-sm-block">
+            <div class="myScrollspy" id="myScrollspy">
+                <div class="myScrollspy_title">目录</div>
+                <hr>
+                <ul class="nav nav-tabs nav-stacked" id="myNav">
+                    
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12">
+            <footer class="footer navbar-fixed-bottom">
+                <hr class="footer_hr">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-xs-2">
+                        <div class="fonter_logo"><a href="/index/">Ladder 3</a></div>
+                    </div>
+    
+                    <div class="col-lg-6 col-md-6 col-xs-2">
+                        <span><a href="https://beian.miit.gov.cn/" target="_blank" class="beian">鄂ICP备2023012715号-1</a></span>
+                        <span> | </span>
+                        <span class="beian">42020202000192号</span>
+                        <div class="footer_cont pi_cont">Copyright@2023 Ladder3</div>
+                    </div>
+    
+                    <div class="col-lg-3 col-md-3 col-xs-2 footer">
+                        <span onclick="persnoal_info()" class="about footer_icon">关于</span>
+                        <span onclick="persnoal_info()"><i class="bi bi-github footer_icon"></i></span>
+                        <span onclick="persnoal_info()"><i class="bi bi-wechat footer_icon"></i></span>
+                        <span onclick="persnoal_info()"><i class="bi bi-twitter footer_icon"></i></span>
+                        <span onclick="persnoal_info()"><i class="bi bi-envelope footer_icon"></i></span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</body>
+
+{% csrf_token %}
+<script>
+  var csrfToken = '{{ csrf_token }}';
+</script>
+
+<script type="text/javascript">
+hljs.highlightAll();
+
+// 自动填充导读目录
+var padding=[10,20,30,40,50];//不同的标题等级缩进大小
+$('.blogcontent').find('h1,h2,h3,h4,h5').each(function(index,item){
+    var that=$(this);
+    $('<a name="c'+index+'" id="c'+index+'" style="height: 1px;"></a>').insertBefore(that);//插入锚点地址,在文章标签的前面，这样点击锚的时候就可跳到标题前
+    var tagName=that[0].tagName.toLowerCase();
+    var tagIndex=parseInt(tagName.charAt(1))-1;//根据标题等级分类，并设置不同的缩进。
+    var link = $('<a href="#c'+index+'" class="nav-link" style="padding-left:'+padding[tagIndex]+'px;display:block;">'+that.text()+'</a>')
+    $('#myNav').append(link);
+    // 添加点击事件
+    link.on('click', function(e) {
+        e.preventDefault(); // 阻止默认的链接跳转行为
+        var targetId = $(this).attr('href');
+        var targetOffset = $(targetId).offset().top;
+
+        // 执行滚动动画
+        $('html, body').animate({
+        scrollTop: targetOffset
+        }, 500); // 调整滚动时间和效果，根据需要进行修改
+    });
+});
+
+// 检查目标位置是否在视窗范围内，监听添加目录高亮样式
+$(window).scroll(function() {
+  var scrollPos = $(window).scrollTop();
+  // 遍历目录链接
+  $('.nav-link').each(function() {
+    var link = $(this);
+    var targetId = link.attr('href').substring(1); // 获取目标元素的 ID
+    var target = document.getElementById(targetId); // 使用原生 JavaScript 获取目标元素
+    if (target) {
+        var targetOffset = $(target).offset().top;
+        // 获取下一个目标元素的位置
+        var nextLink = link.next('.nav-link');
+        var nextTargetId = nextLink.length ? nextLink.attr('href').substring(1) : null;
+        var nextTarget = nextTargetId ? document.getElementById(nextTargetId) : null;
+        var nextTargetOffset = nextTarget ? $(nextTarget).offset().top : Number.MAX_SAFE_INTEGER;
+        scrollPos += 20 // 页面补偿
+        // 检查目标位置是否在滚动范围内
+        if (scrollPos >= targetOffset && scrollPos < nextTargetOffset) {
+            // 添加高亮类名
+            link.addClass('active');
+        } else {
+            // 移除高亮类名
+            link.removeClass('active');
+        }
+    }
+  });
+});
+
+const { createEditor, createToolbar } = window.wangEditor
+
+const editorConfig = {
+    placeholder: 'Type here...',
+    onChange(editor) {
+    const html = editor.getHtml()
+    }
+}
+
+const editor = createEditor({
+    selector: '#editor-container',
+    html: '<p><br></p>',
+    config: editorConfig,
+    mode: 'default', // or 'simple'
+})
+
+const toolbarConfig = {}
+toolbarConfig.excludeKeys = [
+    'group-image',
+    'group-video',
+    'insertTable',
+    'bulletedList',
+    'numberedList',
+    'todo',
+    'fullScreen',
+    'fontSize',
+    'fontFamily',
+    'lineHeight',
+    'group-justify',
+    'group-indent'
+]
+
+const toolbar = createToolbar({
+    editor,
+    selector: '#toolbar-container',
+    config: toolbarConfig,
+    mode: 'default', // or 'simple'
+})
+
+</script>
+</html>

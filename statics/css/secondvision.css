@@ -1,0 +1,205 @@
+@charset "UTF-8";
+
+.modal{
+    z-index: 9999;
+}
+
+.modal-content{
+    background-color:#F0F4F7;
+}
+
+.menu_logo{
+    font-family: 'Colonna';
+    margin-left: 25px;
+    font-size: 30px;
+    color: black;
+    margin-bottom: -15px;
+}
+
+.menu_icon{
+    font-size: 70px;
+    line-height: 50px;
+    margin-bottom: 50px;
+    color: black;
+    background-color:transparent;
+    border-style:none;
+}
+.main_menu {
+    display: flex;
+    flex-direction: row;
+    margin-left: 70px;
+    /* margin-top: 28px; */
+}
+
+/* 菜单与鼠标移入 */
+.menu_ele{
+    margin-top: -45px;
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    position: relative;
+    opacity: 0;
+}
+/* 父控子，浮入元素后控制下拉列表 */
+.items:hover .menu_ele{
+    color: black;
+    z-index: 999;
+    cursor: pointer;
+    opacity: 1;
+    transition: all .7s;
+}
+
+/* 下拉菜单与鼠标移入 */
+.drop{
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    overflow: hidden;
+    text-indent:1em;
+    color: black;
+}
+.drop:hover{
+    background: black;
+    cursor: pointer;
+    color: #fff;
+    left: 0px
+}
+
+.vision_content_body{
+    margin-top: 20px;
+}
+.visionname{
+    text-align: center;
+}
+
+.myScrollspy {
+    position: fixed;
+    display: block;
+    width: 180px;
+    margin-top: 90px;
+    border-radius: 15px;
+    border: 1px solid #ddd;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
+    
+}
+.myScrollspy_title{
+    text-align: center;
+    height: 20px;
+    color: #535353;
+    font-size: 12px;
+}
+
+.nav-link {
+    width: 100%;
+    color: #535353;
+    margin: 0;
+    font-size: 12px;
+}
+
+.nav-link.active {
+    /* background: -webkit-linear-gradient(left,#F7E9D1,white,#F7E9D1); */
+    color: rgb(2, 171, 250) !important;
+    text-decoration: underline
+}
+
+.jumbotron-fluid{
+    height: 850px; 
+
+}
+.fixed {
+    position: fixed;
+    top: 0;
+    margin-top: 40px;
+    /* 其他样式设置 */
+}
+
+/* 回退按钮，太丑了 */
+.getback{
+    font-size: 40px;
+    margin-top: 900px;
+    margin-left: 80px;
+    color: black;
+}
+.visioncontent{
+    padding: 4%;
+}
+.bottom_card{
+    background-color: #FAFAFA;
+    border-radius: 30px;
+    border: 1px solid #ddd;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
+    display: block;
+}
+.card{
+    border: 0px !important;
+    background-color: #FAFAFA;
+}
+blockquote{
+    border-left: 4px;
+    border-left-style: solid;
+    border-left-color: rgb(25, 148, 248);
+    padding-left: 5px;
+    background-color: #f0f0f0;
+}
+.login_info_suc{
+    color: #36f336;
+}
+.login_info_err{
+    color: #fc3122;
+}
+/* 富文本 */
+#editor—wrapper {
+    border: 1px solid #ccc;
+    /* z-index: 100; 按需定义 */
+}
+#toolbar-container { border-bottom: 1px solid #ccc; }
+#editor-container { height: 200px; }
+img,a img{
+    border:0;
+    margin:0;
+    padding:0;
+    max-width:1140px;
+    width:e-xpression(this.width>1140?"1140px":this.width);
+    max-height:1140px;
+    height:e-xpression(this.height>1140?"1140px":this.height);
+}
+table {
+border-collapse: collapse;
+}
+
+th, td {
+border: 1px solid black;
+}
+.footer{
+    background-color: #000000;
+    height: 100%;
+    color: #fff;
+    text-align: center;
+}
+.footer_cont{
+    color: #b9b9b9;
+    text-align: center;
+}
+.footer_icon{
+    margin-right: 10px;
+}
+.about{
+    cursor: pointer;
+    text-decoration: underline
+}
+.visioncont_jumbo_title{
+    color: #fff;
+    font-size: 40px;
+    /* border-left: #fff 4px solid; */
+
+}
+.visioncont_jumbo_cont{
+    color: #fff;
+    font-size: 15px;
+    border-left: #fff 4px solid;
+    padding-left: 5px;
+}
+.signup_tag{
+    font-size: 12px;
+    color: #424242;
+}

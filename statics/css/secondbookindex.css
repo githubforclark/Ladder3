@@ -1,0 +1,194 @@
+@charset "UTF-8";
+
+.menu_logo{
+    font-family: 'Colonna';
+    margin-left: 25px;
+    font-size: 30px;
+    color: black;
+    margin-bottom: -15px;
+}
+
+.menu_icon{
+    font-size: 70px;
+    line-height: 50px;
+    margin-bottom: 50px;
+    color: black;
+    background-color:transparent;
+    border-style:none;
+}
+.main_menu {
+    display: flex;
+    flex-direction: row;
+    margin-left: 70px;
+    /* margin-top: 28px; */
+}
+/* 每个菜单的样式(宽度这里调,子菜单宽度都听这个) */
+.items {
+    width: 130px;
+    color: #fff;
+    position: relative;
+}
+
+/* 菜单与鼠标移入 */
+.menu_ele{
+    margin-top: -45px;
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    position: relative;
+    opacity: 0;
+}
+/* 父控子，浮入元素后控制下拉列表 */
+.items:hover .menu_ele{
+    color: black;
+    z-index: 999;
+    cursor: pointer;
+    opacity: 1;
+    transition: all .7s;
+}
+
+/* 下拉菜单与鼠标移入 */
+.drop{
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    overflow: hidden;
+    text-indent:2em;
+    color: black;
+}
+.drop:hover{
+    background: black;
+    cursor: pointer;
+    color: #fff;
+    left: 0px
+}
+
+.paginator_st{
+    /* 居中的方法 */
+    display:flex;justify-content: center; align-items:center;
+    margin-top: 50px;
+}
+.breadcrumb{
+    margin-top: 30px;
+}
+.content_body{
+    margin-top: 20px;
+}
+@media (min-width: 1200px) {
+    .modal-xl {
+        max-width: 1700px;
+        max-height: 880px;
+        
+    }
+}
+.introvs{
+    width: 100%;
+    height: 880px;
+}
+.view_btn{
+    margin-left: 110px;
+    margin-top: 10px;
+    width: 100px;
+    background-color: black;
+    color: #fff;
+}
+.pageicon{
+    font-size: 30px;
+    color: black;
+}
+.pagep{
+    margin-top: 10px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.book-card{
+    max-width: 540px; 
+    height: 170px;
+    background-color: #FAFAFA;
+}
+.fixed {
+    position: fixed;
+    top: 0;
+    margin-top: 40px;
+    /* 其他样式设置 */
+}
+.jumbotron-fluid{
+    height: 400px; 
+    background-color: #F0EFED;
+    background-image: url('https://ladder3.oss-cn-beijing.aliyuncs.com/img2imp/Book5.png')
+}
+.books_jumbo_title{
+    /* margin-left: -140px; */
+    font-family: 'PoiretOne';
+}
+.books_jumbo_cont{
+    font-size: 15px;
+    /* margin-left: -140px; */
+}
+.book_card_img{
+    height: 80%; width: 80%; margin-top: 10%;
+}
+.phone_return_btn{
+    display:none;
+    text-align: center;
+    background-color: #F0EFED;
+}
+.top_hr{
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #ffffff, #000000, #ffffff);
+    margin: 0;
+    margin-top: 3px;
+}
+.footer{
+    background-color: #000000;
+    height: 100%;
+    color: #fff;
+    text-align: center;
+}
+.footer_cont{
+    color: #b9b9b9;
+    text-align: center;
+}
+.footer_icon{
+    margin-right: 10px;
+}
+.about{
+    cursor: pointer;
+    text-decoration: underline
+}
+
+
+@media(max-width: 462px){
+    .book_card_img{
+        height: 10%; width: 10%;
+    }
+    .card-body-f{
+        width: 70%;
+    }
+    .card-img-f{
+        width: 30%;
+    }
+    .book_card_img{
+        height: 80%; width: 70%; margin-top: 10%;
+    }
+    .jumbotron-fluid{
+        height: 240px;
+        background-image: url('https://ladder3.oss-cn-beijing.aliyuncs.com/img2imp/book6.png');
+    }
+    .books_jumbo_title{
+        font-size: 35px;
+    }
+    .books_jumbo_cont{
+        font-size: 8px;
+        width: 40%;
+    }
+    .phone_return_btn{
+        display: block;
+    }
+    .book_card_title{
+        margin-left: 20px;
+    }
+}

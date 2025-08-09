@@ -1,0 +1,438 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">-->	
+    
+    <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!--图标-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    
+    <!--BT-->
+    <!--<link rel="stylesheet" href="{% static 'css/bootstrap-table.css' %}">-->
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/bootstrap-table/1.20.2/bootstrap-table.css">
+    <!-- <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.css"> -->
+
+    <!-- 模板 -->
+    <link rel="stylesheet" href="{% static 'css/minimal.css' %}">
+    <!-- 富文本 -->
+    <link rel="stylesheet" href="{% static 'css/editor.css' %}">
+    
+    <style>
+        /* #proposaltable {border: 0px;} */
+        body {background-color: #F0F4F7; color: #7A839E;}
+        /* #proposal_list {background-color: #7A839E;} */
+
+        #content{ 
+            background-color:#F0F4F7 ;color:#000000;
+            margin-left: 200px;
+        }
+
+        .badge{margin-left: 20px;margin-top: 0px}
+        .btn{margin-right: 10px}
+        /* .card{margin-top: 3px; background: -webkit-linear-gradient(left,white,#2E9DB4);} */
+        input{width: 300px;}
+        .modal-content{background-color:#F0F4F7;}
+        #sidebar { 
+            background: -webkit-linear-gradient(left,#e6c8a3,#DBB688,#2E9DB4); 
+            height: 100%;
+            position:fixed;
+            width: 150px !important;
+        }
+
+        .cards {
+            margin-bottom: 10px;
+        }
+
+        .top-card{
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border: solid 0.3em #506D84;
+            border-radius: 40px;
+            border-width: 2px 4px;
+            /* border-left-color: #DBB688; */
+        }
+        .topcard-body{
+            text-align: center;
+        }
+        .card-style {
+            margin-left: 10%;
+        }
+        .c1 {
+            background: -webkit-linear-gradient(left,#ebe2d8,#e2d6c6,#e2d1bb); 
+        }
+        .c2 {
+            background: -webkit-linear-gradient(top,#fce8ab,#fade88,#FFC107); 
+        }
+        .c3 {
+            background: -webkit-linear-gradient(top,#8cc9d3,#59b2c0,#17A2B8); 
+        }
+        .c4 {
+            background: -webkit-linear-gradient(left,#a2bdc2,#a0c1c7,#98c1c9); 
+        }
+        /* .topcard-title {
+            text-decoration: underline
+        } */
+        .edit_controll{
+            display:flex;
+            justify-content: right; 
+            align-items:right;
+        }
+
+        #cons-list li{
+            font-size: 15px;
+            list-style-type: none;
+            color: #000000 ;
+        }
+        .prog-style {
+            width: 80%;
+            margin-left: 10%;
+        }
+        /* 富文本 */
+        #editor—wrapper {
+            border: 1px solid #ccc;
+            /* z-index: 100; 按需定义 */
+        }
+        #toolbar-container { border-bottom: 1px solid #ccc; }
+        #editor-container { height: 800px; }
+
+        .dat {
+            background: -webkit-linear-gradient(left,#F7E9D1,white,#F7E9D1);
+            height: 50px;
+        }
+        
+
+    </style>
+
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-lg-2 col-md-2">
+            <h1></h1>
+            <ul class="list-unstyled components mb-5">
+                <li class="active"><a class="sidelist" href="/Bifrost/blogctl/"><i class="bi bi-flower1"></i>Blog</a></li>
+                <li class="active"><a class="sidelist" href="/Bifrost/visionctl/"><i class="bi bi-strava"></i>Vision</a></li>
+                <li class="active"><a class="sidelist" href="/Bifrost/bookctl/"><i class="bi bi-unity"></i>Books</a></li>
+                <li class="active"><a class="sidelist" href="/Bifrost/blogctl/"><i class="bi bi-bank"></i>Other</a></li>
+            </ul>
+        </div>
+        <div class="col-lg-10 col-md-10">
+            <h1><strong>Blog</strong>s</h1>
+
+            <!-- 顶栏展示数据 -->
+            <!-- cards -->
+            <div class="row cards">
+                <div class="card-container col-lg-3 col-sm-6 col-xs-12">
+                    <div class="card card-slategray hover top-card c1">
+                        <div class="media-body card-style">
+                            <h5 class="topcard-title">DPM Num</h5>
+                            <h2 class="media-heading animate-number topcard-body" id="dpm_num">0</h2>
+                        </div>
+                        <div style="height: 15px;"></div>
+                    </div>
+                </div>
+
+                <div class="card-container col-lg-3 col-sm-6 col-sm-12">
+                    <div class="card card-redbrown hover top-card c2">
+                        <div class="media-body card-style">
+                            <h5 class="topcard-title">Open Cons / Cons:</h5>
+                            <h2 class="media-heading animate-number topcard-body" id="topcard_cons"></h2>
+                        </div>
+                        
+                        <div class="progress prog-style">
+                            <div class="progress-bar progress-bar-striped bg-warning progress-bar-animated" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" id="cons_progress">25%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-container col-lg-3 col-sm-6 col-sm-12">
+                    <div class="card card-blue hover top-card c3">
+                        <div class="media-body card-style">
+                            <h5 class="topcard-title">Open Prop / Prop:</h5>
+                            <h2 class="media-heading animate-number topcard-body" id="topcard_prop"></h2>
+                        </div>
+
+                        <div class="progress prog-style">
+                            <div class="progress-bar progress-bar-striped bg-info progress-bar-animated" role="progressbar" style="width: 50%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" id="prop_progress">50%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-container col-lg-3 col-sm-6 col-sm-12">
+                    <div class="card card-greensea hover top-card c4">
+                        <div class="media-body card-style">
+                            <h5 class="topcard-title">Except:</h5>
+                            <h2 class="media-heading animate-number topcard-body" id="now_exp"></h2>
+                        </div>
+                        <!-- <div class="progress prog-style">
+                            <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                        </div> -->
+                        <div style="height: 15px;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <hr>
+            <ul id="blog_list"></ul>
+
+            <!-- 输入组 -->
+            <div id="blog_id" hidden></div>
+            <div class="mb-3">
+                <label for="recipient-name" class="control-label">标题:</label>
+                <input type="text" class="form-control" id="blog_title">
+            </div>
+            <div class="mb-3">
+                <label for="recipient-name" class="control-label">描述:</label>
+                <input type="text" class="form-control" id="blog_describe">
+            </div>
+            <div class="mb-3">
+                <label for="recipient-name" class="control-label">图片链接:</label>
+                <input type="text" class="form-control" id="blog_imglink">
+            </div>
+            <p>正文：</p>
+
+            <div id="editor—wrapper">
+                <div id="toolbar-container"><!-- 工具栏 --></div>
+                <div id="editor-container"><!-- 编辑器 --></div>
+            </div>
+            <div id="edit_controll">
+                
+                <button type="button" class="btn btn-primary" onclick="add_blog()">
+                    <i class="bi bi-infinity"></i>
+                    Add Blogs
+                </button>
+                <button type="button" class="btn btn-primary" onclick="edit_blog()" style="margin-left: 100px;">
+                    <i class="bi bi-infinity"></i>
+                    Edit Blog
+                </button>
+
+            </div>
+        
+        </div>
+    </div>
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+<!-- 富文本 -->
+<script src="{% static 'js/editor.js' %}"></script>
+
+
+</body>
+<script type="text/javascript">
+
+    // 每次初始化页面，添加卡片
+    window.onload=function(){
+        // 获取卡片参数
+        $.ajax({
+            type: "GET",
+            url: "/Bifrost/GetBlogList/",
+            data: {},
+            dataType: 'json',
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function(result) {
+
+                result = result['bloglist'];
+                console.log('zz',result);
+                $(result).each(function(i) {
+                    data = result[i];
+                    console.log(result,i)
+                    var bID = data['ID'];
+                    var blog_title = data['blog_title'];
+                    var blog_describe = data['blog_describe'];
+                    var blog_imglink = data['blog_imglink'];
+                    var blog_content = data['blog_content'];
+                    var blog_status = data['blog_status'];
+                    var create_time = data['create_time'];
+                    var update_time = data['update_time'];
+
+                    if (blog_status=='open'){
+                        matclass = 'dat';
+                        matbtn = '隐藏'
+                    }
+                    else if (blog_status=='close'){
+                        matclass = '';
+                        matbtn = '开启'
+                    }else {
+                        matclass = '';
+                        matbtn = ''
+                    }
+                    
+                    var htm = '<li>'+
+                    '<div class="card" style="width: 720px;height: 50px";><div class="row no-gutters '+matclass+'" id="dat'+bID+'">'+
+                        '<div class="col-md-3" style="text-align: center;">'+blog_title+'</div>'+
+                        '<div class="col-md-3">描述: '+blog_describe+'</div>'+
+                        '<div class="col-md-4"><div class="card-body close_btn">'+
+                            '<button type="button" class="btn btn-outline-secondary" style="margin-left:15px;margin-top:-13px"id="btn'+bID+'" onclick="change_state('+bID+')">'+matbtn+'</button>'+
+                            '<button type="button" class="btn btn-outline-secondary" style="margin-left:15px;margin-top:-13px" onclick="edit_blog_show('+bID+')">编辑</button>'+
+                            '<button type="button" style="float:right; margin-top:-10px" onclick="del_autotask('+bID+')"><i class="bi bi-x"></i></button>'+
+                        '</div></div>'+
+                    '</div></div></li>';
+                    let li = window.document.createElement("li");
+                    li.innerHTML = htm;
+                    window.document.getElementById("blog_list").appendChild(li);
+                
+                });
+            }
+        });
+    }
+
+    const { createEditor, createToolbar } = window.wangEditor
+
+    const editorConfig = {
+        placeholder: 'Type here...',
+        onChange(editor) {
+        const html = editor.getHtml()
+        console.log('editor content', html)
+        // 也可以同步到 <textarea>
+        }
+    }
+
+    const editor = createEditor({
+        selector: '#editor-container',
+        html: '<p><br></p>',
+        config: editorConfig,
+        mode: 'default', // or 'simple'
+    })
+
+    const toolbarConfig = {}
+
+    const toolbar = createToolbar({
+        editor,
+        selector: '#toolbar-container',
+        config: toolbarConfig,
+        mode: 'default', // or 'simple'
+    })
+    
+    function add_blog(){
+        var blog_title = $('#blog_title').val();
+        var blog_describe = $('#blog_describe').val();
+        var blog_imglink = $('#blog_imglink').val();
+        
+        var blog_content = editor.getHtml();
+        $.ajax({
+            type: "POST",
+            url: "/Bifrost/AddBlogs/",
+            data: {
+                'blog_title': blog_title,
+                'blog_describe': blog_describe,
+                'blog_imglink': blog_imglink,
+                'blog_content': blog_content,
+                'csrfmiddlewaretoken':'{{ csrf_token }}'  // 这一条是用于ssl的加密，在data中包含csrf_token来进行验证，防止跨站攻击
+            },
+            dataType: 'json',
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function(result) {
+                location.reload()
+            }
+        });
+    }
+    // 状态开关
+    function change_state(ID){
+        var blog_id = ID;
+        $.ajax({
+            type: "POST",
+            url: "/Bifrost/ChangeBlogState/",
+            data: {
+                'blog_id': blog_id,
+                'csrfmiddlewaretoken':'{{ csrf_token }}'  // 这一条是用于ssl的加密，在data中包含csrf_token来进行验证，防止跨站攻击
+            },
+            dataType: 'json',
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function(result) {
+                var blog_id = result['blog_id'];
+                var blog_status = result['blog_status'];
+
+                if (blog_status=='open') {
+                    // 拼接行的id名称
+                    datcol = '#dat' + blog_id;
+                    // 拼接按钮的id名称;
+                    datbtn = 'btn' + blog_id;
+
+                    var stgstyle = document.querySelector(datcol);
+                    stgstyle.classList.add("dat");
+
+                    document.getElementById(datbtn).innerHTML="隐藏"
+                }else if(blog_status=='close'){
+                    // 拼接行的id名称
+                    datcol = '#dat' + blog_id
+                    // 拼接按钮的id名称
+                    datbtn = 'btn' + blog_id
+
+                    // 给行添加class
+                    var stgstyle = document.querySelector(datcol);
+                    stgstyle.classList.remove("dat");
+                    //  改变按钮字样
+                    document.getElementById(datbtn).innerHTML="开启"
+                }
+            }
+        });
+    }
+
+    // 编辑blog
+    function edit_blog_show(ID){
+        var blog_id = ID;
+        $.ajax({
+            type: "POST",
+            url: "/Bifrost/EditBlogShow/",
+            data: {
+                'blog_id': blog_id,
+                'csrfmiddlewaretoken':'{{ csrf_token }}'  // 这一条是用于ssl的加密，在data中包含csrf_token来进行验证，防止跨站攻击
+            },
+            dataType: 'json',
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function(result) {
+                var blog_data = result['blog_data'];
+                var blog_title = blog_data['blog_title'];
+                var blog_describe = blog_data['blog_describe'];
+                var blog_imglink = blog_data['blog_imglink'];
+                var blog_content = blog_data['blog_content'];
+
+                $('#blog_id').html(blog_id)
+                editor.setHtml(blog_content);
+                $('#blog_title').val(blog_title);
+                $('#blog_describe').val(blog_describe);
+                $('#blog_imglink').val(blog_imglink);
+
+            }
+        });
+    }
+    // 提交编辑blog
+    function edit_blog(){
+        var blog_id = $('#blog_id').html();
+        var blog_content = editor.getHtml();
+        var blog_title = $('#blog_title').val();
+        var blog_describe = $('#blog_describe').val();
+        var blog_imglink = $('#blog_imglink').val();
+        $.ajax({
+            type: "POST",
+            url: "/Bifrost/EditBlog/",
+            data: {
+                'blog_id': blog_id,
+                'blog_content': blog_content,
+                'blog_title': blog_title,
+                'blog_describe': blog_describe,
+                'blog_imglink': blog_imglink,
+                'csrfmiddlewaretoken':'{{ csrf_token }}'  // 这一条是用于ssl的加密，在data中包含csrf_token来进行验证，防止跨站攻击
+            },
+            dataType: 'json',
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function(result) {
+                location.reload()
+
+            }
+        });
+    }
+    
+
+
+</script>
+</html>
